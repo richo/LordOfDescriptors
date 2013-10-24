@@ -1,21 +1,9 @@
 dnl $Id$
 dnl config.m4 for extension LordOfDescriptors
 
-dnl Comments in this file start with the string 'dnl'.
-dnl Remove where necessary. This file will not work
-dnl without editing.
-
-dnl If your extension references something external, use with:
-
-dnl PHP_ARG_WITH(LordOfDescriptors, for LordOfDescriptors support,
+PHP_ARG_ENABLE(LordOfDescriptors, whether to enable LordOfDescriptors support,
 dnl Make sure that the comment is aligned:
-dnl [  --with-LordOfDescriptors             Include LordOfDescriptors support])
-
-dnl Otherwise use enable:
-
-dnl PHP_ARG_ENABLE(LordOfDescriptors, whether to enable LordOfDescriptors support,
-dnl Make sure that the comment is aligned:
-dnl [  --enable-LordOfDescriptors           Enable LordOfDescriptors support])
+[  --enable-LordOfDescriptors           Enable LordOfDescriptors support])
 
 if test "$PHP_LORDOFDESCRIPTORS" != "no"; then
   dnl Write more examples of tests here...
@@ -45,7 +33,7 @@ if test "$PHP_LORDOFDESCRIPTORS" != "no"; then
 
   dnl # --with-LordOfDescriptors -> check for lib and symbol presence
   dnl LIBNAME=LordOfDescriptors # you may want to change this
-  dnl LIBSYMBOL=LordOfDescriptors # you most likely want to change this 
+  dnl LIBSYMBOL=LordOfDescriptors # you most likely want to change this
 
   dnl PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
   dnl [
