@@ -71,7 +71,11 @@ PHP_FUNCTION(recv_socket)
     php_socket  *out_sock = (php_socket*)emalloc(sizeof(php_socket));
     php_socket  *in_sock;
 
-    ZEND_FETCH_RESOURCE(in_sock, php_socket *, &arg1, -1, php_sockets_le_socket_name, le_LordOfDescriptors);
+    /* ZEND_FETCH_RESOURCE(in_sock, php_socket *, &arg1, -1, php_sockets_le_socket_name, le_LordOfDescriptors); */
+/* #define ZEND_FETCH_RESOURCE(rsrc, rsrc_type, passed_id, default_id, resource_type_name, resource_type)  \ */
+
+    in_sock = (php_socket *) zend_fetch_resource(&arg1 TSRMLS_CC, -1, php_sockets_le_socket_name, NULL, -1);
+        /* rsrc = (rsrc_type) zend_fetch_resource(passed_id TSRMLS_CC, default_id, resource_type_name, NULL, 1, resource_type); */
 
     int    len;
     int    pass_sd;
