@@ -101,8 +101,11 @@ PHP_FUNCTION(recv_socket)
     struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
     memcpy(&pass_sd, CMSG_DATA(cmsg), sizeof(int));
     printf("Received descriptor = %d\n", pass_sd);
+    printf("getting a client\n");
 
-    out_sock->bsd_socket = pass_sd;
+    accepted = accept(pass_sd, NULL, NULL);
+
+    out_sock->bsd_socket = accepted;
     out_sock->type = AF_UNIX;
     out_sock->error = 0;
     out_sock->blocking = 1;
