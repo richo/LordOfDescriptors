@@ -32,6 +32,7 @@
 static int le_LordOfDescriptors;
 
 const zend_function_entry LordOfDescriptors_functions[] = {
+    PHP_FE(recv_socket, NULL)
 	PHP_FE_END	/* Must be the last line in LordOfDescriptors_functions[] */
 };
 
@@ -59,6 +60,18 @@ ZEND_GET_MODULE(LordOfDescriptors)
 #endif
 
 
+PHP_FUNCTION(recv_socket)
+{
+    char *sock = NULL;
+    int argc = ZEND_NUM_ARGS();
+
+    if (zend_parse_parameters(argc TSRMLS_CC, "r", &sock) == FAILURE) {
+        php_error_doc_ref(NULL TSRMLS_CC, E_ERROR, "Invalid Parameters");
+        return;
+    }
+
+    RETURN_STRING("butts", 1);
+}
 
 
 

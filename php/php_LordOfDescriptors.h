@@ -36,6 +36,8 @@ extern zend_module_entry LordOfDescriptors_module_entry;
 #include "TSRM.h"
 #endif
 
+PHP_FUNCTION(recv_socket);
+
 PHP_MINIT_FUNCTION(LordOfDescriptors);
 PHP_MSHUTDOWN_FUNCTION(LordOfDescriptors);
 PHP_RINIT_FUNCTION(LordOfDescriptors);
