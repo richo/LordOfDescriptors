@@ -39,7 +39,7 @@ int bind_socket(char* path) {
 int main(int argc, char **argv) {
     fd_set fds, rfds, wfds;
     size_t n_fds, fds_handled;
-    int i, client;
+    int i, client, new_fd;
     int upstream, downstream;
     if (argc != 3) {
         usage(argv[0]);
@@ -72,7 +72,8 @@ int main(int argc, char **argv) {
                 client = accept(downstream, NULL, NULL);
                 FD_SET(client, &wfds);
             } else {
-                send(i, "butts", sizeof("butts"), 0);
+                new_fd = dup(upstream);
+                send_fd(i, new_fd);
                 close(i);
                 FD_CLR(i, &fds);
             }
