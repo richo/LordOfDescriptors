@@ -103,6 +103,9 @@ PHP_FUNCTION(recv_socket)
     printf("Received descriptor = %d\n", pass_sd);
 
     out_sock->bsd_socket = pass_sd;
+    out_sock->type = AF_UNIX;
+    out_sock->error = 0;
+    out_sock->blocking = 1;
 
     ZEND_REGISTER_RESOURCE(return_value, in_sock, le_socket);
 
