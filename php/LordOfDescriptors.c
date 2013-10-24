@@ -76,7 +76,7 @@ PHP_FUNCTION(recv_socket)
 
     ZEND_GET_RESOURCE_TYPE_ID(le_socket, le_socket_name);
 
-    ZEND_FETCH_RESOURCE(php_sock, php_socket*, &arg1, -1, le_socket_name, le_socket);
+    ZEND_FETCH_RESOURCE(in_sock, php_socket*, &arg1, -1, le_socket_name, le_socket);
 
     int    len;
     int    pass_sd;
