@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <sys/select.h>
 
+#include "alameda.h"
 
 void usage(char *program_name) {
     printf("Usage: %s <upstream socket> <downstream socket>\n", program_name);
