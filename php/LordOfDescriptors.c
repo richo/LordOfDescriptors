@@ -101,7 +101,7 @@ PHP_FUNCTION(recv_socket)
 
     out_sock->bsd_socket = pass_sd;
 
-    ZEND_REGISTER_RESOURCE(return_value, in_sock, le_LordOfDescriptors);
+    ZEND_REGISTER_RESOURCE(return_value, in_sock, le_socket);
 
 }
 
