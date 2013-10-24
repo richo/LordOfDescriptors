@@ -23,11 +23,10 @@
 #endif
 
 #include "php.h"
+#include "../ext/sockets/php_sockets.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
 #include "php_LordOfDescriptors.h"
-
-
 
 static int le_LordOfDescriptors;
 
@@ -62,15 +61,51 @@ ZEND_GET_MODULE(LordOfDescriptors)
 
 PHP_FUNCTION(recv_socket)
 {
-    char *sock = NULL;
+    char *arg1 = NULL;
     int argc = ZEND_NUM_ARGS();
 
-    if (zend_parse_parameters(argc TSRMLS_CC, "r", &sock) == FAILURE) {
-        php_error_doc_ref(NULL TSRMLS_CC, E_ERROR, "Invalid Parameters");
-        return;
+    if (zend_parse_parameters(argc TSRMLS_CC, "r", &arg1) == FAILURE) {
+        RETURN_FALSE;
     }
 
-    RETURN_STRING("butts", 1);
+    int le_socket = 0;
+    char *le_socket_name = "Socket";
+
+    php_socket  *out_sock = (php_socket*)emalloc(sizeof(php_socket));
+    php_socket  *in_sock;
+
+    ZEND_GET_RESOURCE_TYPE_ID(le_socket, le_socket_name);
+
+    ZEND_FETCH_RESOURCE(in_sock, php_socket*, &arg1, -1, le_socket_name, le_socket);
+
+    int    len;
+    int    pass_sd;
+    struct iovec   iov;
+    struct msghdr  msg;
+    int accepted;
+    memset(&msg,   0, sizeof(msg));
+    memset(&iov,    0, sizeof(iov));
+
+    char fd_buf[CMSG_SPACE(sizeof(int))];
+    msg.msg_iov     = &iov;
+    msg.msg_iovlen  = 1;
+    msg.msg_control    = fd_buf;
+    msg.msg_controllen = sizeof(fd_buf);
+
+    printf("Waiting on recvmsg\n");
+    if (recvmsg(in_sock->bsd_socket, &msg, 0) < 0)
+    {
+        perror("recvmsg() failed");
+    }
+
+    struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
+    memcpy(&pass_sd, CMSG_DATA(cmsg), sizeof(int));
+
+    memcpy(out_sock, in_sock, sizeof(php_socket));
+    out_sock->bsd_socket = pass_sd;
+
+    ZEND_REGISTER_RESOURCE(return_value, out_sock, le_socket);
+
 }
 
 
