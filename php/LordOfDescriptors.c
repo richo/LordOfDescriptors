@@ -68,6 +68,9 @@ PHP_FUNCTION(recv_socket)
         RETURN_FALSE;
     }
 
+    int le_socket = 0;
+    char *le_socket_name = "Socket";
+
     php_socket  *out_sock = (php_socket*)emalloc(sizeof(php_socket));
     php_socket  *in_sock;
 
