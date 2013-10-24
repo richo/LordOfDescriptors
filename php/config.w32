@@ -1,0 +1,13 @@
+// $Id$
+// vim:ft=javascript
+
+// If your extension references something external, use ARG_WITH
+// ARG_WITH("LordOfDescriptors", "for LordOfDescriptors support", "no");
+
+// Otherwise, use ARG_ENABLE
+// ARG_ENABLE("LordOfDescriptors", "enable LordOfDescriptors support", "no");
+
+if (PHP_LORDOFDESCRIPTORS != "no") {
+	EXTENSION("LordOfDescriptors", "LordOfDescriptors.c");
+}
+
