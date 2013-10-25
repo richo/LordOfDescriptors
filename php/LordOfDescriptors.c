@@ -108,33 +108,25 @@ PHP_FUNCTION(recv_socket)
 
 }
 
-
-
 PHP_MINIT_FUNCTION(LordOfDescriptors)
 {
 	return SUCCESS;
 }
-
 
 PHP_MSHUTDOWN_FUNCTION(LordOfDescriptors)
 {
 	return SUCCESS;
 }
 
-
-
 PHP_RINIT_FUNCTION(LordOfDescriptors)
 {
 	return SUCCESS;
 }
 
-
-
 PHP_RSHUTDOWN_FUNCTION(LordOfDescriptors)
 {
 	return SUCCESS;
 }
-
 
 PHP_MINFO_FUNCTION(LordOfDescriptors)
 {
@@ -143,8 +135,3 @@ PHP_MINFO_FUNCTION(LordOfDescriptors)
 	php_info_print_table_end();
 
 }
-
-
-
-
-
