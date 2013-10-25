@@ -29,6 +29,7 @@
 #include "php_LordOfDescriptors.h"
 
 static int le_LordOfDescriptors;
+char *le_socket_name = "Socket";
 
 const zend_function_entry LordOfDescriptors_functions[] = {
     PHP_FE(recv_socket, NULL)
@@ -69,7 +70,6 @@ PHP_FUNCTION(recv_socket)
     }
 
     int le_socket = 0;
-    char *le_socket_name = "Socket";
 
     php_socket  *out_sock = (php_socket*)emalloc(sizeof(php_socket));
     php_socket  *in_sock;
@@ -92,10 +92,10 @@ PHP_FUNCTION(recv_socket)
     msg.msg_control    = fd_buf;
     msg.msg_controllen = sizeof(fd_buf);
 
-    printf("Waiting on recvmsg\n");
     if (recvmsg(in_sock->bsd_socket, &msg, 0) < 0)
     {
         perror("recvmsg() failed");
+        RETURN_FALSE;
     }
 
     struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
