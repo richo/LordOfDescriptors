@@ -60,6 +60,7 @@ int main(int argc, char **argv) {
     FD_ZERO(&wfds);
 
     FD_SET(downstream, &fds);
+    new_fd = dup(upstream);
     while (1) {
         memcpy(&rfds, &fds, sizeof(fd_set));
         n_fds = select(FD_SETSIZE, &rfds, &wfds, NULL, NULL);
@@ -72,7 +73,7 @@ int main(int argc, char **argv) {
                 client = accept(downstream, NULL, NULL);
                 FD_SET(client, &wfds);
             } else {
-                new_fd = dup(upstream);
+                dup2(upstream, new_fd);
                 send_fd(i, new_fd);
                 close(i);
                 FD_CLR(i, &fds);
