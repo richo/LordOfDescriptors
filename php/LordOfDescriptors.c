@@ -80,6 +80,7 @@ PHP_FUNCTION(recv_socket)
 
     int    len;
     int    pass_sd;
+    char   tries = 10;
     struct iovec   iov;
     struct msghdr  msg;
     int accepted;
@@ -92,7 +93,8 @@ PHP_FUNCTION(recv_socket)
     msg.msg_control    = fd_buf;
     msg.msg_controllen = sizeof(fd_buf);
 
-    if (recvmsg(in_sock->bsd_socket, &msg, 0) < 0)
+    while (recvmsg(in_sock->bsd_socket, &msg, 0) < 0 && i) { i--; }
+    if (i == 0)
     {
         perror("recvmsg() failed");
         RETURN_FALSE;
